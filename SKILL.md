@@ -1,6 +1,8 @@
 ---
 name: fact-check
+version: 1.0.0
 description: Pipeline semi-automatizado de verificação de fatos com contexto brasileiro. Use quando o usuário pedir para verificar, checar, validar informação ou analisar conteúdo suspeito. Quatro modos - padrão (11 etapas), comparação, prebunking e rápido.
+license: MIT
 ---
 
 # Fact-check
@@ -59,16 +61,55 @@ Identificar primeira aparição do conteúdo, idioma original, mutações ao lon
 
 ### Etapa 5 — Detecção de sinais de alerta
 
-Varrer o conteúdo contra 6 categorias de manipulação:
+Varrer o conteúdo contra 6 categorias de manipulação (40+ marcadores):
 
-| Categoria | Sinais |
-|---|---|
-| A — Manipulação emocional | Urgência artificial, medo, indignação, enquadramento tribal |
-| B — Problemas de atribuição | Fontes anônimas, especialistas falsos, veículos imitados |
-| C — Falácias lógicas | Cherry-picking, falsa dicotomia, espantalho, post hoc |
-| D — Manipulação temporal/contextual | Conteúdo reciclado, edição seletiva, mistradução |
-| E — Sinais coordenados | Astroturfing, clickbait, deepfakes, padrões de bots |
-| F — Saúde (específico) | Curas milagrosas, uso indevido de VAERS/Notivisa, enquadramento anti-institucional |
+**A — Manipulação emocional**
+- Urgência artificial ("URGENTE!!!", correntes de WhatsApp, "compartilhe antes que apaguem")
+- Gatilhos de medo específicos: saúde de crianças, perda de emprego, violência, segurança financeira
+- Indignação e enquadramento tribal ("eles não querem que você saiba", "a mídia esconde")
+- Apelo à vaidade ou identidade grupal ("brasileiros de bem", "quem tem consciência sabe")
+- Linguagem apocalíptica desproporcionada ao conteúdo
+
+**B — Problemas de atribuição**
+- Fontes anônimas ou genéricas ("médicos afirmam", "especialistas dizem", "fonte confiável")
+- Especialistas reais citados fora de contexto ou com credencial distorcida
+- Veículos imitados (nomes parecidos com G1, Folha, CNN Brasil)
+- Print de tela sem URL, data ou contexto verificável
+- Vídeo cortado que omite contexto crucial
+- Tradução distorcida de conteúdo estrangeiro
+
+**C — Falácias lógicas**
+- Cherry-picking: selecionar apenas evidências favoráveis
+- Falsa dicotomia: apresentar duas opções quando existem mais
+- Espantalho: distorcer a posição contrária para refutá-la mais facilmente
+- Post hoc ergo propter hoc: correlação apresentada como causalidade
+- Apelo à natureza: "natural" = bom, "artificial" = ruim
+- Falso consenso: "todo mundo sabe que...", "a maioria das pessoas concorda..."
+- Slippery slope: "se X acontecer, inevitavelmente Y e Z virão"
+
+**D — Manipulação temporal/contextual**
+- Conteúdo reciclado de outro país apresentado como brasileiro
+- Foto ou vídeo de outra época apresentado como atual
+- Data alterada em print ou manchete
+- Headline sensacionalista contradiz o corpo do texto
+- Edição seletiva que omite parte relevante da declaração original
+- Mistradução intencional de conteúdo em outro idioma
+
+**E — Sinais coordenados**
+- Astroturfing: movimento popular artificial com coordenação oculta
+- Clickbait: título projetado para engajamento emocional, não informação
+- Deepfake de áudio, vídeo ou imagem de figuras públicas
+- Padrões de bot: publicação sincronizada, comentários idênticos em múltiplas plataformas
+- Grupo coordenado de comentários impulsionando narrativa
+- Influencer com posicionamento pago sem disclosure (#publi, #ad ausente)
+
+**F — Saúde (específico para Brasil)**
+- Curas milagrosas sem ensaio clínico (chás, protocolos, suplementos)
+- Uso indevido de dados do OpenDataSUS ou registros de VAERS/Notivisa fora de contexto
+- Distorção de bulas ou notas técnicas da ANVISA
+- Kit covid, cloroquina, ivermectina como referências a tratamentos validados
+- Médico como autoridade em área fora de sua especialidade
+- "Tratamento proibido pelos médicos" como enquadramento anti-institucional
 
 ### Etapa 6 — Atribuição de veredicto
 
@@ -157,6 +198,10 @@ Técnica central: gastar menos tempo *dentro* da fonte, mais tempo verificando *
 4. **ENCONTRAR COBERTURA MELHOR** — Buscar a afirmação em palavras diferentes por veículos de Tier 1–3
 
 ## Saída — formato Markdown
+
+> **Nota de adaptação:** O original ([fact-check-skill](https://github.com/petar-nauka/fact-check-skill)) gera HTML cards com CSS inline. Esta versão PT-BR gera Markdown estruturado — mais adequado para fluxos baseados em texto (Claude.ai, terminais, Obsidian). A estrutura analítica é equivalente.
+
+> **Modo offline:** quando sem acesso a ferramentas web, declarar a limitação explicitamente, reduzir a confiança do veredicto um nível e orientar o usuário para verificação manual com as fontes de Tier 1–2 listadas em `SOURCES.md`.
 
 Entregar inline no chat no seguinte formato:
 
