@@ -35,7 +35,7 @@ Retorna: veredicto estruturado, pontuação MFS (Manipulation & Falsehood Score)
 **Via gh CLI** (requer [GitHub CLI](https://cli.github.com/) 2.90.0+):
 
 ```bash
-gh skill install [usuario]/fact-check-skill-ptbr fact-check
+gh skill install cfoschiera/fact-check-skill-ptbr fact-check
 ```
 
 **Manual:**
@@ -43,7 +43,7 @@ gh skill install [usuario]/fact-check-skill-ptbr fact-check
 ```bash
 mkdir -p ~/.claude/skills/fact-check
 curl -o ~/.claude/skills/fact-check/SKILL.md \
-  https://raw.githubusercontent.com/[usuario]/fact-check-skill-ptbr/main/SKILL.md
+  https://raw.githubusercontent.com/cfoschiera/fact-check-skill-ptbr/main/SKILL.md
 ```
 
 ## Uso
